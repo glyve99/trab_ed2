@@ -22,7 +22,7 @@ void visita(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin){
 	
 }
 
-void buscaProfundidade(int n, int *M, int raiz){
+void buscaProfundidade(int *M, int n, int raiz){
 	
 	char cor[n];
 	int tdes[n];
@@ -31,8 +31,10 @@ void buscaProfundidade(int n, int *M, int raiz){
 	for(int i=0; i<n; i++){
 		cor[i] = 'b';
 	}
-	
 	visita(M, n, raiz, cor, &cont, tdes, tfin);
+	for(int j=0; j<n; j++){
+		if(cor[j] == 'b') visita(M, n, j, cor, &cont, tdes, tfin);
+	}
 	for(int j=0; j<n; j++){
 		
 		printf("%c   %d   %d\n",cor[j], tdes[j], tfin[j]);
@@ -44,7 +46,7 @@ void buscaProfundidade(int n, int *M, int raiz){
 int main(void){
 	
 	int grafos[5][5] = {{0, 0, 1, 1, 0}, {1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 0, 0, 1}, {1, 0, 0, 0, 0}};
-	buscaProfundidade(5, *grafos, 0);
+	buscaProfundidade(*grafos, 5, 0);
 	return 0;
 	
 }
