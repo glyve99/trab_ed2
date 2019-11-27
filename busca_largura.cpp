@@ -68,30 +68,40 @@ void buscaLargura(int *M, int n, int raiz){
 	cor[raiz] = 'c';
 	dist[raiz] = 0;
 	insercao(&f, raiz);
+	int ind;
 	while(!vazia(f)){
-		int ind;
 		remocao(&f, &ind);
-		for(int j=0; j<n; j++){
-			if(*(M + n*ind + j) == 1){
-				if(cor[j] == 'b'){
-					cor[j] == 'c';
-					dist[j] = dist[ind] + 1;
-					pai[j] = ind;
-					insercao(&f, j);
+		for(int i=0; i<n; i++){
+			if(*(M + n*ind + i) == 1){
+				if(cor[i] == 'b'){
+					cor[i] == 'c';
+					dist[i] = dist[ind] + 1;
+					pai[i] = ind;
+					insercao(&f, i);
 				}
 			}
 		}
 		cor[ind] = 'p';
 	}
-	for(int k=0; k<n; k++){
-		printf("%c   %d   %d\n",cor[k],dist[k],pai[k]);
+	for(int i=0; i<n; i++){
+		printf("%c   %d   %d\n",cor[i],dist[i],pai[i]);
 	}
 	
 }
 
 int main(void){
 	
-	int grafos[5][5] = {{0, 0, 1, 1, 0}, {1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 0, 0, 1}, {1, 0, 0, 0, 0}};
-	buscaLargura(*grafos, 5, 0);
+	int grafos[10][10] = {
+	{0, 0, 1, 1, 0, 0, 1, 0, 0, 0}, 
+	{0, 0, 0, 0, 1, 0, 0, 0, 1, 0}, 
+	{0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, 
+	{0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, 
+	{0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 1, 0, 0}};
+	buscaLargura(*grafos, 10, 0);
 	
 }

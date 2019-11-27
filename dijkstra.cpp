@@ -43,22 +43,22 @@ void dijkstra(int *M, int n, int raiz){
 		
 		aux = 0;
 		
-		for(int j=0; j<n; j++){
+		for(int i=0; i<n; i++){
 			
-			if((Q[j] == true) && (d[j] != -1)){
+			if((Q[i] == true) && (d[i] != -1)){
 				
 				if(!aux){
 					
 					aux = 1;
-					menor = d[j];
-					menorind = j;
+					menor = d[i];
+					menorind = i;
 					
 				}
 				
-				if(d[j] < menor){
+				if(d[i] < menor){
 					
-					menor = d[j];
-					menorind = j;
+					menor = d[i];
+					menorind = i;
 					
 				}
 				
@@ -68,16 +68,16 @@ void dijkstra(int *M, int n, int raiz){
 		
 		S[menorind] = true;
 		Q[menorind] = false;
-		for(int k=0; k<n; k++){
+		for(int i=0; i<n; i++){
 			
-			if(*(M + menorind*n + k) != -1) relaxa(menorind, k, M, n, d, pai);
+			if(*(M + menorind*n + i) != -1) relaxa(menorind, i, M, n, d, pai);
 			
 		}
 		
 	}
-	for(int l=0; l<n; l++){
+	for(int i=0; i<n; i++){
 		
-		printf("%d   %d   %d   %d\n",d[l],pai[l],Q[l],S[l]);
+		printf("%d   %d   %d   %d\n", d[i], pai[i], Q[i], S[i]);
 		
 	}
 	

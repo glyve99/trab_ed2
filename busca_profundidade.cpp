@@ -32,12 +32,12 @@ void buscaProfundidade(int *M, int n, int raiz){
 		cor[i] = 'b';
 	}
 	visita(M, n, raiz, cor, &cont, tdes, tfin);
-	for(int j=0; j<n; j++){
-		if(cor[j] == 'b') visita(M, n, j, cor, &cont, tdes, tfin);
+	for(int i=0; i<n; i++){
+		if(cor[i] == 'b') visita(M, n, i, cor, &cont, tdes, tfin);
 	}
-	for(int j=0; j<n; j++){
+	for(int i=0; i<n; i++){
 		
-		printf("%c   %d   %d\n",cor[j], tdes[j], tfin[j]);
+		printf("%c   %d   %d\n",cor[i], tdes[i], tfin[i]);
 		
 	}
 	
@@ -45,8 +45,18 @@ void buscaProfundidade(int *M, int n, int raiz){
 
 int main(void){
 	
-	int grafos[5][5] = {{0, 0, 1, 1, 0}, {1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 0, 0, 1}, {1, 0, 0, 0, 0}};
-	buscaProfundidade(*grafos, 5, 0);
+	int grafos[10][10] = {
+	{0, 0, 1, 1, 0, 0, 1, 0, 0, 0}, 
+	{0, 0, 0, 0, 1, 0, 0, 0, 1, 0}, 
+	{0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 1, 1, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, 
+	{0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, 
+	{0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+	{0, 0, 0, 0, 0, 0, 0, 1, 0, 0}};
+	buscaProfundidade(*grafos, 10, 0);
 	return 0;
 	
 }
