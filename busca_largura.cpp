@@ -54,38 +54,62 @@ bool vazia(fila f){
 
 void buscaLargura(int *M, int n, int raiz){
 	
+	FILE *arq;
+	arq = fopen("buscaLargura.txt","w");
+	fprintf(arq,"Realizando a busca em largura em um grafo com %d vértices, partindo do vértice %d\n",n,raiz);
 	fila f;
 	f.ini = 0;
 	f.fim = 0;
 	char cor[n];
 	int dist[n];
 	int pai[n];
+	fputs("Inicializando os vértices...\n",arq);
 	for(int i=0; i<n; i++){
+		
 		cor[i] = 'b';
 		dist[i] = -1;
 		pai[i] = -1;
+		
 	}
 	cor[raiz] = 'c';
+	fprintf(arq,"Pintando o vértice %d de cinza\n",raiz);
 	dist[raiz] = 0;
+	fprintf(arq,"Distância do vértice %d: 0\n",raiz);
 	insercao(&f, raiz);
+	fprintf(arq,"Inserindo o vértice %d na fila\n",raiz);
 	int ind;
 	while(!vazia(f)){
+		
 		remocao(&f, &ind);
+		fprintf(arq,"Removendo o vértice %d da fila\n",ind);
 		for(int i=0; i<n; i++){
+			
 			if(*(M + n*ind + i) == 1){
+				
 				if(cor[i] == 'b'){
+					
 					cor[i] == 'c';
+					fprintf(arq,"Pintando o vértice %d de cinza\n",i);
 					dist[i] = dist[ind] + 1;
+					fprintf(arq,"Distância do vértice %d: %d\n",i,dist[i]);
 					pai[i] = ind;
+					fprintf(arq,"Pai do vértice %d: %d\n",i,pai[i]);
 					insercao(&f, i);
+					fprintf(arq,"Inserindo o vértice %d na fila\n",i);
+					
 				}
+				
 			}
+			
 		}
+		
 		cor[ind] = 'p';
+		fprintf(arq,"Pintando o vértice %d de preto\n",ind);
+		
 	}
-	for(int i=0; i<n; i++){
-		printf("%c   %d   %d\n",cor[i],dist[i],pai[i]);
-	}
+	fputs("Vértice   Cor   Distância   Pai\n",arq);
+	for(int i=0; i<n; i++) fprintf(arq,"%d         %c     %d           %d\n",i,cor[i],dist[i],pai[i]);
+	fclose(arq);
 	
 }
 
@@ -101,7 +125,9 @@ int main(void){
 	{0, 0, 1, 0, 0, 0, 0, 0, 0, 0}, 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, 
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
-	{0, 0, 0, 0, 0, 0, 0, 1, 0, 0}};
+	{0, 0, 0, 0, 0, 0, 0, 1, 0, 0}
+	};
 	buscaLargura(*grafos, 10, 0);
+	return 0;
 	
 }

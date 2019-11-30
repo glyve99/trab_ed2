@@ -1,0 +1,45 @@
+Aplicando o algoritmo de Dijkstra em um grafo com 5 vértices, partindo do vértice 0
+Inicializando os vértices...
+Distância do vértice 0: 0
+Extraindo, para processamento, o vértice de menor distância que ainda não foi processado. (Vértice 0)
+Aplicando a função relaxa no vértice 0, em relação ao seu vizinho 1
+Encontrado um caminho menos custoso para o vértice 1.
+Vértice 1 agora tem distância 10
+Vértice 1 agora tem como pai o vértice 0
+Aplicando a função relaxa no vértice 0, em relação ao seu vizinho 3
+Encontrado um caminho menos custoso para o vértice 3.
+Vértice 3 agora tem distância 5
+Vértice 3 agora tem como pai o vértice 0
+Extraindo, para processamento, o vértice de menor distância que ainda não foi processado. (Vértice 3)
+Aplicando a função relaxa no vértice 3, em relação ao seu vizinho 1
+Encontrado um caminho menos custoso para o vértice 1.
+Vértice 1 agora tem distância 8
+Vértice 1 agora tem como pai o vértice 3
+Aplicando a função relaxa no vértice 3, em relação ao seu vizinho 2
+Encontrado um caminho menos custoso para o vértice 2.
+Vértice 2 agora tem distância 14
+Vértice 2 agora tem como pai o vértice 3
+Aplicando a função relaxa no vértice 3, em relação ao seu vizinho 4
+Encontrado um caminho menos custoso para o vértice 4.
+Vértice 4 agora tem distância 7
+Vértice 4 agora tem como pai o vértice 3
+Extraindo, para processamento, o vértice de menor distância que ainda não foi processado. (Vértice 4)
+Aplicando a função relaxa no vértice 4, em relação ao seu vizinho 0
+Aplicando a função relaxa no vértice 4, em relação ao seu vizinho 2
+Encontrado um caminho menos custoso para o vértice 2.
+Vértice 2 agora tem distância 13
+Vértice 2 agora tem como pai o vértice 4
+Extraindo, para processamento, o vértice de menor distância que ainda não foi processado. (Vértice 1)
+Aplicando a função relaxa no vértice 1, em relação ao seu vizinho 2
+Encontrado um caminho menos custoso para o vértice 2.
+Vértice 2 agora tem distância 9
+Vértice 2 agora tem como pai o vértice 1
+Aplicando a função relaxa no vértice 1, em relação ao seu vizinho 3
+Extraindo, para processamento, o vértice de menor distância que ainda não foi processado. (Vértice 2)
+Aplicando a função relaxa no vértice 2, em relação ao seu vizinho 4
+Vértice   Distância   Pai
+0         0           -1
+1         8           3
+2         9           1
+3         5           0
+4         7           3

@@ -1,0 +1,37 @@
+Realizando a busca em largura em um grafo com 5 vértices, partindo do vértice 0
+Inicializando os vértices...
+Pintando o vértice 0 de cinza
+Distância do vértice 0: 0
+Inserindo o vértice 0 na fila
+Removendo o vértice 0 da fila
+Pintando o vértice 2 de cinza
+Distância do vértice 2: 1
+Pai do vértice 2: 0
+Inserindo o vértice 2 na fila
+Pintando o vértice 3 de cinza
+Distância do vértice 3: 1
+Pai do vértice 3: 0
+Inserindo o vértice 3 na fila
+Pintando o vértice 0 de preto
+Removendo o vértice 2 da fila
+Pintando o vértice 1 de cinza
+Distância do vértice 1: 2
+Pai do vértice 1: 2
+Inserindo o vértice 1 na fila
+Pintando o vértice 2 de preto
+Removendo o vértice 3 da fila
+Pintando o vértice 4 de cinza
+Distância do vértice 4: 2
+Pai do vértice 4: 3
+Inserindo o vértice 4 na fila
+Pintando o vértice 3 de preto
+Removendo o vértice 1 da fila
+Pintando o vértice 1 de preto
+Removendo o vértice 4 da fila
+Pintando o vértice 4 de preto
+Vértice   Cor   Distância   Pai
+0         p     0           -1
+1         p     2           2
+2         p     1           0
+3         p     1           0
+4         p     2           3

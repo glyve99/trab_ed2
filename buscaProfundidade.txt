@@ -1,0 +1,33 @@
+Realizando a busca em profundidade em um grafo com 5 vértices, partindo do vértice 0
+Inicializando os vértices...
+Realizando a busca a partir da raiz...
+Pintando o vértice 0 de cinza
+Tempo de descobrimento do vértice 0: 1
+Visitando o vértice 2...
+Pintando o vértice 2 de cinza
+Tempo de descobrimento do vértice 2: 2
+Visitando o vértice 1...
+Pintando o vértice 1 de cinza
+Tempo de descobrimento do vértice 1: 3
+Pintando o vértice 1 de preto
+Tempo de finalização do vértice 1: 4
+Pintando o vértice 2 de preto
+Tempo de finalização do vértice 2: 5
+Visitando o vértice 3...
+Pintando o vértice 3 de cinza
+Tempo de descobrimento do vértice 3: 6
+Visitando o vértice 4...
+Pintando o vértice 4 de cinza
+Tempo de descobrimento do vértice 4: 7
+Pintando o vértice 4 de preto
+Tempo de finalização do vértice 4: 8
+Pintando o vértice 3 de preto
+Tempo de finalização do vértice 3: 9
+Pintando o vértice 0 de preto
+Tempo de finalização do vértice 0: 10
+Vértice   Cor   Tempo de descoberta   Tempo de finalização
+0         p     1                     10
+1         p     3                     4
+2         p     2                     5
+3         p     6                     9
+4         p     7                     8
