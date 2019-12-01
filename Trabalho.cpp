@@ -3,14 +3,14 @@
 
 #define MAX   100
 
-typedef struct f{
+typedef struct f{   //Struct fila para a busca em largura
 	
 	int V[MAX];
 	int ini, fim;
 	
 } fila;
 
-bool insercao(fila *f, int elem){
+bool insercao(fila *f, int elem){   //Função inserção em uma fila
 	
 	if(f->fim != MAX){
 		
@@ -24,7 +24,7 @@ bool insercao(fila *f, int elem){
 	
 }
 
-bool remocao(fila *f, int *elem){
+bool remocao(fila *f, int *elem){   //Função remoção em uma fila
 	
 	if(f->ini != f->fim){
 		
@@ -45,14 +45,14 @@ bool remocao(fila *f, int *elem){
 	
 }
 
-bool vazia(fila f){
+bool vazia(fila f){   //Função para verificar se uma dada fila está vazia
 	
 	if(f.ini == f.fim) return true;
 	else return false;
 	
 }
 
-void visita(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin, FILE *arq){
+void visita(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin, FILE *arq){   //Função visita para a busca em profundidade
 	
 	*(cor+ind) = 'c';
 	fprintf(arq,"Pintando o vértice %d de cinza\n",ind);
@@ -61,9 +61,9 @@ void visita(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin, 
 	fprintf(arq,"Tempo de descobrimento do vértice %d: %d\n",ind,*cont);
 	for(int i=0; i<n; i++){
 		
-		if((*(M + n*ind + i)) == 1){
+		if((*(M + n*ind + i)) == 1){   //Se o vértice i for adjacente ao vértice ind
 		
-			if((*(cor+i)) == 'b') {
+			if((*(cor+i)) == 'b') {   //E se a cor do vértice i for branco, faça...
 				
 				fprintf(arq,"Visitando o vértice %d...\n",i);
 				visita(M, n, i, cor, cont, tdes, tfin, arq);
@@ -82,24 +82,25 @@ void visita(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin, 
 	
 }
 
-void buscaProfundidade(int *M, int n, int raiz){
+void buscaProfundidade(int *M, int n, int raiz){   //Busca em profundidade
 	
 	FILE *arq;
 	arq = fopen("buscaProfundidade.txt", "w");
 	fprintf(arq,"Realizando a busca em profundidade em um grafo com %d vértices, partindo do vértice %d\n",n,raiz);
-	char cor[n];
-	int tdes[n];
-	int tfin[n];
+	char cor[n];   //Vetor de cores de cada vértice
+	int tdes[n];   //Vetor de tempo de descobrimento de cada vértice
+	int tfin[n];   //Vetor de tempo de finalização de cada vértice
 	int cont = 0;
 	fputs("Inicializando os vértices...\n", arq);
-	for(int i=0; i<n; i++) cor[i] = 'b';
+	for(int i=0; i<n; i++) cor[i] = 'b';   //Pintando todos os vértices de branco
 	
 	fputs("Realizando a busca a partir da raiz...\n", arq);
-	visita(M, n, raiz, cor, &cont, tdes, tfin, arq);
+	visita(M, n, raiz, cor, &cont, tdes, tfin, arq);   //Realizando a visita a partir da raiz
 	
 	for(int i=0; i<n; i++){
 		
-		if(cor[i] == 'b') {
+		if(cor[i] == 'b') {   //Verificando se há algum vértice que não foi alcançado pela primeira busca (a partir da raiz).
+		                      //Se houver, começará a busca novamente a partir desse vértice.
 			
 			fprintf(arq,"Visitando o vértice %d...\n",i);
 			visita(M, n, i, cor, &cont, tdes, tfin, arq);
@@ -113,17 +114,17 @@ void buscaProfundidade(int *M, int n, int raiz){
 	
 }
 
-void buscaLargura(int *M, int n, int raiz){
+void buscaLargura(int *M, int n, int raiz){   //Busca em largura
 	
 	FILE *arq;
 	arq = fopen("buscaLargura.txt","w");
 	fprintf(arq,"Realizando a busca em largura em um grafo com %d vértices, partindo do vértice %d\n",n,raiz);
-	fila f;
+	fila f;   //Iniciando a fila
 	f.ini = 0;
 	f.fim = 0;
-	char cor[n];
-	int dist[n];
-	int pai[n];
+	char cor[n];   //Vetor de cores de cada vértice
+	int dist[n];   //Vetor de distância de cada vértice
+	int pai[n];   //Vetor de pai de cada vértice
 	fputs("Inicializando os vértices...\n",arq);
 	for(int i=0; i<n; i++){
 		
@@ -136,7 +137,7 @@ void buscaLargura(int *M, int n, int raiz){
 	fprintf(arq,"Pintando o vértice %d de cinza\n",raiz);
 	dist[raiz] = 0;
 	fprintf(arq,"Distância do vértice %d: 0\n",raiz);
-	insercao(&f, raiz);
+	insercao(&f, raiz);   //Inserindo vértice raiz na fila
 	fprintf(arq,"Inserindo o vértice %d na fila\n",raiz);
 	int ind;
 	while(!vazia(f)){
@@ -145,9 +146,9 @@ void buscaLargura(int *M, int n, int raiz){
 		fprintf(arq,"Removendo o vértice %d da fila\n",ind);
 		for(int i=0; i<n; i++){
 			
-			if(*(M + n*ind + i) == 1){
+			if(*(M + n*ind + i) == 1){   //Se o vértice i for adjacente ao vértice ind
 				
-				if(cor[i] == 'b'){
+				if(cor[i] == 'b'){   //E se a cor do vértice i for branco, faça...
 					
 					cor[i] == 'c';
 					fprintf(arq,"Pintando o vértice %d de cinza\n",i);
@@ -174,7 +175,7 @@ void buscaLargura(int *M, int n, int raiz){
 	
 }
 
-void relaxa(int u, int v, int *M, int n, int *d, int *pai, FILE *arq){
+void relaxa(int u, int v, int *M, int n, int *d, int *pai, FILE *arq){   //Função relaxa, utilizada no algoritmo de Dijkstra e Bellman-ford
 	
 	if((*(d+v) == -1) || (*(d+v) > *(d+u) + *(M + u*n + v))){
 		
@@ -188,7 +189,7 @@ void relaxa(int u, int v, int *M, int n, int *d, int *pai, FILE *arq){
 	
 }
 
-bool vazio(bool *v, int n){
+bool vazio(bool *v, int n){   //Função para verificar se o conjunto Q do algoritmo de Dijkstra está vazio.
 	
 	for(int i=0; i<n; i++){
 		
@@ -205,10 +206,10 @@ void dijkstra(int *M, int n, int raiz){
 	FILE *arq;
 	arq = fopen("dijkstra.txt","w");
 	fprintf(arq,"Aplicando o algoritmo de Dijkstra em um grafo com %d vértices, partindo do vértice %d\n",n,raiz);
-	bool Q[n];
-	bool S[n];
-	int d[n];
-	int pai[n];
+	bool Q[n];   //Conjunto dos vértices ainda não processados
+	bool S[n];   //Conjunto dos vértices já processados
+	int d[n];   //Vetor da distância de cada vértice
+	int pai[n];   //Vetor do pai de cada vértice
 	fputs("Inicializando os vértices...\n",arq);
 	for(int i=0; i<n; i++){
 		
@@ -220,7 +221,7 @@ void dijkstra(int *M, int n, int raiz){
 	d[raiz] = 0;
 	fprintf(arq,"Distância do vértice %d: 0\n",raiz);
 	int menor, menorind, aux;
-	while(!vazio(Q,n)){
+	while(!vazio(Q,n)){   //Enquanto o conjunto Q não estiver vazio, ache o vértice com menor distância que está em Q
 		
 		aux = 0;
 		
@@ -248,14 +249,15 @@ void dijkstra(int *M, int n, int raiz){
 		}
 		
 		fprintf(arq,"Extraindo, para processamento, o vértice de menor distância que ainda não foi processado. (Vértice %d)\n",menorind);
+		//Movendo o vértice menorind (vértice de menor distância que está no conjunto Q) do conjunto Q para o conjunto S
 		S[menorind] = true;
 		Q[menorind] = false;
 		for(int i=0; i<n; i++){
 			
-			if(*(M + menorind*n + i) != -1){
+			if(*(M + menorind*n + i) != -1){   //Se o vértice i for adjacente ao vértice menorind...
 				
 				fprintf(arq,"Aplicando a função relaxa no vértice %d, em relação ao seu vizinho %d\n",menorind,i);
-				 relaxa(menorind, i, M, n, d, pai,arq);
+				relaxa(menorind, i, M, n, d, pai,arq);
 				
 			}
 			
@@ -268,13 +270,13 @@ void dijkstra(int *M, int n, int raiz){
 	
 }
 
-bool bellmanFord(int *M, int n, int raiz){
+bool bellmanFord(int *M, int n, int raiz){   //Algoritmo de Bellman-Ford
 	
 	FILE *arq;
 	arq = fopen("bellmanFord.txt","w");
 	fprintf(arq,"Aplicando o algoritmo de Bellman-ford em um grafo com %d vértices, partindo do vértice %d\n",n,raiz);
-	int d[n];
-	int pai[n];
+	int d[n];   //Vetor de distância de cada vértice
+	int pai[n];   //Vetor de pai de cada vértice
 	fputs("Inicializando os vértices...\n",arq);
 	for(int i=0; i<n; i++){
 		
@@ -284,14 +286,14 @@ bool bellmanFord(int *M, int n, int raiz){
 	}
 	d[raiz] = 0;
 	fprintf(arq,"Distância do vértice %d: 0\n",raiz);
-	for(int i=1; i<n; i++){
+	for(int i=1; i<n; i++){   //Algoritmo itera de 1 até V-1, sendo V o número de vértices
 		
 		fprintf(arq,"Iteração número %d\n",i);
 		for(int j=0; j<n; j++){
 			
 			for(int k=0; k<n; k++){
 				
-				if(*(M + j*n + k) != -1) {
+				if(*(M + j*n + k) != -1) {   //Se o vértice k for adjacente ao vértice j...
 					
 					fprintf(arq,"Aplicando a função relaxa no vértice %d, em relação ao seu vizinho %d\n",j,k);
 					relaxa(j, k, M, n, d, pai, arq);
@@ -305,13 +307,18 @@ bool bellmanFord(int *M, int n, int raiz){
 	}
 	fputs("Vértice   Distância   Pai\n",arq);
 	for(int i=0; i<n; i++) fprintf(arq,"%d         %d           %d\n",i,d[i],pai[i]);
-	for(int i=0; i<n; i++){
+	for(int i=0; i<n; i++){   //Verificando se há um ciclo negativo no grafo.
 		
 		for(int j=0; j<n; j++){
 			
 			if(*(M + i*n + j) != -1){
 				
-				if(d[j] > d[i] + *(M + i*n + j)) return false;
+				if(d[j] > d[i] + *(M + i*n + j)) {
+					
+					fputs("Encontrado um ciclo negativo no grafo. Função retornando falso",arq);
+					return false;
+					
+				}
 				
 			}
 			
@@ -323,17 +330,17 @@ bool bellmanFord(int *M, int n, int raiz){
 	
 }
 
-void lergrafo(FILE *arq, int *tipografo, int *numvertices, int *gr){
+void lergrafo(FILE *arq, int *tipografo, int *numvertices, int *gr){   //Leitura de grafo em um arquivo, no formato de matriz de adjacência
 	
 	if(arq != NULL){
 		
 		fseek(arq, 0, SEEK_SET);
-		fscanf(arq, "%d", tipografo);
+		fscanf(arq, "%d", tipografo);   //Leitura do tipo do grafo (1 se grafo, 2 se dígrafo)
 		fseek(arq, 1, SEEK_CUR);
-		fscanf(arq, "%d", numvertices);
+		fscanf(arq, "%d", numvertices);   //Leitura do número de vértices do grafo
 		fseek(arq, 1, SEEK_CUR);
 		int num;
-		for(int i=0; i<(*numvertices); i++){
+		for(int i=0; i<(*numvertices); i++){   //Leitura da matriz dee adjacência referente ao grafo
 				
 			for(int j=0; j<(*numvertices); j++){
 					
@@ -351,7 +358,7 @@ void lergrafo(FILE *arq, int *tipografo, int *numvertices, int *gr){
 	
 }
 
-void lertamanhografo(FILE *arq, int *numvertices){
+void lertamanhografo(FILE *arq, int *numvertices){   //Função para ler o tamanho do grafo em um arquivo
 	
 	if(arq != NULL){
 		
@@ -359,6 +366,52 @@ void lertamanhografo(FILE *arq, int *numvertices){
 		fscanf(arq, "%d", numvertices);
 		
 	}
+	
+}
+
+void lertipografo(FILE *arq, int *type){   //Função para ler o tipo do grafo em um arquivo
+	
+	if(arq != NULL){
+		
+		fseek(arq, 0, SEEK_SET);
+		fscanf(arq, "%d", type);
+		
+	}
+	
+}
+
+bool caminho(int *M, int n, int u, int v){   //Função para verificar se há caminho entre dois vértices de um grafo
+	
+	if(*(M + u*n + v) == 0){
+		
+		for(int i=0; i<n; i++){
+			
+			if(*(M + u*n + i) != 0){
+				
+				if(caminho(M, n, i, v) == true) return true;
+				return false;
+				
+			}
+			
+		}
+		
+	} else return true;
+	
+}
+
+bool conexo(int *M, int n){   //Função para verificar se um grafo é conexo
+	
+	for(int i=0; i<n; i++){
+		
+		for(int j=0; j<n; j++){
+			
+			if((!(caminho(M, n, i, j))) && (!(caminho(M, n, j, i)))) return false;
+			
+		}
+		
+	}
+	
+	return true;
 	
 }
 
