@@ -82,6 +82,27 @@ void visita(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin, 
 	
 }
 
+void visita2(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin){   //Função visita para o algoritmo de caminho
+	
+	*(cor+ind) = 'c';
+	*cont = *cont + 1;
+	*(tdes+ind) = *cont;
+	for(int i=0; i<n; i++){
+		
+		if((*(M + n*ind + i)) == 1){
+		
+			if((*(cor+i)) == 'b') visita2(M, n, i, cor, cont, tdes, tfin);
+			
+		}
+		
+	}
+	
+	*(cor+ind) = 'p';
+	*cont = *cont + 1;
+	*(tfin+ind) = *cont;
+	
+}
+
 void buscaProfundidade(int *M, int n, int raiz){   //Busca em profundidade
 	
 	FILE *arq;
@@ -380,22 +401,18 @@ void lertipografo(FILE *arq, int *type){   //Função para ler o tipo do grafo em 
 	
 }
 
-bool caminho(int *M, int n, int u, int v){   //Função para verificar se há caminho entre dois vértices de um grafo
+bool caminho(int *M, int n, int u, int v){   //Função para verificar se há caminho entre dois vértices de um grafo (mesma lógica da busca em profundidade)
 	
-	if(*(M + u*n + v) == 0){
-		
-		for(int i=0; i<n; i++){
-			
-			if(*(M + u*n + i) != 0){
-				
-				if(caminho(M, n, i, v) == true) return true;
-				return false;
-				
-			}
-			
-		}
-		
-	} else return true;
+	char cor[n];
+	int tdes[n];
+	int tfin[n];
+	int cont = 0;
+	for(int i=0; i<n; i++) cor[i] = 'b';
+	visita2(M, n, raiz, cor, &cont, tdes, tfin);
+	
+	if(cor[v] == 'b') return false;
+	
+	return true;
 	
 }
 

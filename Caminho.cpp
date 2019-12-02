@@ -1,22 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool caminho(int *M, int n, int u, int v){
+void visita2(int *M, int n, int ind, char *cor, int *cont, int *tdes, int *tfin){   //Função visita para o algoritmo de caminho
 	
-	if(*(M + u*n + v) == 0){
+	*(cor+ind) = 'c';
+	*cont = *cont + 1;
+	*(tdes+ind) = *cont;
+	for(int i=0; i<n; i++){
 		
-		for(int i=0; i<n; i++){
-			
-			if(*(M + u*n + i) != 0){
-				
-				if(caminho(M, n, i, v) == true) return true;
-				return false;
-				
-			}
+		if((*(M + n*ind + i)) == 1){
+		
+			if((*(cor+i)) == 'b') visita2(M, n, i, cor, cont, tdes, tfin);
 			
 		}
 		
-	} else return true;
+	}
+	
+	*(cor+ind) = 'p';
+	*cont = *cont + 1;
+	*(tfin+ind) = *cont;
+	
+}
+
+bool caminho(int *M, int n, int u, int v){   //Função para verificar se há caminho entre dois vértices de um grafo (mesma lógica da busca em profundidade)
+	
+	char cor[n];
+	int tdes[n];
+	int tfin[n];
+	int cont = 0;
+	for(int i=0; i<n; i++) cor[i] = 'b';
+	visita2(M, n, u, cor, &cont, tdes, tfin);
+	
+	if(cor[v] == 'b') return false;
+	
+	return true;
 	
 }
 
@@ -48,6 +65,22 @@ void lergrafo(FILE *arq, int *tipografo, int *numvertices, int *gr){
 	
 }
 
+bool conexo(int *M, int n){   //Função para verificar se um grafo é conexo
+	
+	for(int i=0; i<n; i++){
+		
+		for(int j=0; j<n; j++){
+			
+			if((!(caminho(M, n, i, j))) && (!(caminho(M, n, j, i)))) return false;
+			
+		}
+		
+	}
+	
+	return true;
+	
+}
+
 int main(void){
 	
 	FILE *f1;
@@ -55,7 +88,7 @@ int main(void){
 	int type,n;
 	int grafo[5][5];
 	lergrafo(f1,&type,&n,*grafo);
-	printf("%d",caminho(*grafo,n,0,1));
+	printf("%d",conexo(*grafo,n));
 	return 0;
 	
 }
